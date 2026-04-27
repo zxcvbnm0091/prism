@@ -1,11 +1,12 @@
-// require("dotenv").config();
-import { config } from "dotenv";
+import "dotenv/config"; // ← use this instead, it's hoisted with imports
+
 import express, { json } from "express";
 import { connectDB, disconnectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import movieRoutes from "./routes/movieRoutes.js";
 
-config();
+// console.log("DATABASE_URL:", process.env.DATABASE_URL); // should work now
+
 connectDB();
 const app = express();
 
@@ -23,18 +24,18 @@ app.listen(PORT, () => {
 
 process.on("uncaughtException", async (err) => {
   console.error("Uncaught Exception", err);
-  await disconnecDB();
+  await disconnectDB();
   process.exit(1);
 });
 process.on("unhandledRejection", async (err) => {
   console.error("Unhandled Rejection", err);
-  await disconnecDB();
+  await disconnectDB();
   process.exit(1);
 });
 process.on("SIGTERM", async (err) => {
   console.error("SIGTERM receive, shutting down gracefully", err);
   server.close(async () => {
-    await disconnecDB();
+    await disconnectDB();
     process.exit(1);
   });
 });
