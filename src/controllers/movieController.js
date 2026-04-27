@@ -1,4 +1,4 @@
-const prisma = require('../config/db');
+import { prisma } from "../config/db.js";
 
 const getAllMovies = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ const getMovieById = async (req, res) => {
     const movie = await prisma.movie.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (!movie) return res.status(404).json({ error: 'Movie not found' });
+    if (!movie) return res.status(404).json({ error: "Movie not found" });
     res.json(movie);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -24,7 +24,7 @@ const getMovieById = async (req, res) => {
 const createMovie = async (req, res) => {
   try {
     const { title, director, releaseYear } = req.body;
-    if (!title) return res.status(400).json({ error: 'Title is required' });
+    if (!title) return res.status(400).json({ error: "Title is required" });
     const movie = await prisma.movie.create({
       data: { title, director, releaseYear },
     });
@@ -56,4 +56,4 @@ const deleteMovie = async (req, res) => {
   }
 };
 
-module.exports = { getAllMovies, getMovieById, createMovie, updateMovie, deleteMovie };
+export { getAllMovies, getMovieById, createMovie, updateMovie, deleteMovie };

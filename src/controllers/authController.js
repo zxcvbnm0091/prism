@@ -1,10 +1,10 @@
 // Placeholder - add your auth logic here
 const register = (req, res) => {
-  res.json({ message: 'register endpoint' });
+  res.json({ message: "register endpoint" });
 };
 
 const login = (req, res) => {
-  res.json({ message: 'login endpoint' });
+  res.json({ message: "login endpoint" });
 };
 
-module.exports = { register, login };
+export { register, login };
